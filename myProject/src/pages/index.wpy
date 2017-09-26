@@ -112,6 +112,9 @@
       }
       .info{
         font-size: 35rpx;
+        .nickName{
+          margin-bottom: -30rpx;
+        }
       }
     }
     .container_child{
@@ -165,10 +168,10 @@
     <!--我item-->
     <view class="tabPublic pt_30 tab_me" hidden="{{currentTab !=3}}">
       <view class="button border_top_bottom mb40 wxInfo">
-        <view class="avatar"></view>
+        <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
         <view class="info">
-          <view>Seven</view>
-          <view>微信号: laigongqi</view>
+          <view class="nickName">{{userInfo.nickName}}</view>
+          <view class="wechatNumber">微信号: laigongqi</view>
         </view>
         <view class="QRcord"></view>
       </view>
@@ -203,10 +206,28 @@
       'navigationBarBackgroundColor': '#3a393e'
     }
     data = {
-      currentTab: 1
+      currentTab: 3,
+      userInfo: {
+        nickName:null,
+        avatarUrl:null
+      }
     }
     components = {
       tab: Tab
     }
+    onLoad () {
+      this.getUserInfo()
+    }
+    getUserInfo () {
+      wx.login()
+      wx.getUserInfo({
+        success: (res) => {
+          this.userInfo.nickName=res.userInfo.nickName
+          this.userInfo.avatarUrl=res.userInfo.avatarUrl
+          console.log(this.userInfo.avatarUrl)
+        }
+      })
+    }
+
   }
 </script>

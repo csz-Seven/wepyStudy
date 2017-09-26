@@ -38,10 +38,10 @@
     <!--我item-->
     <view class="tabPublic pt_30 tab_me" hidden="{{currentTab !=3}}">
       <view class="button border_top_bottom mb40 wxInfo">
-        <view class="avatar"/>
+        <image class="avatar" src="{{userInfo.avatarUrl}}"/>
         <view class="info">
-          <view>Seven</view>
-          <view>微信号: laigongqi</view>
+          <view class="nickName">{{userInfo.nickName}}</view>
+          <view class="wechatNumber">微信号: laigongqi</view>
         </view>
         <view class="QRcord"/>
       </view>
