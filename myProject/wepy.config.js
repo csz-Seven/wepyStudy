@@ -12,12 +12,12 @@ module.exports = {
   },
   eslint: true,
   compilers: {
-    less: {
-      compress: true
-    },
-    /*sass: {
+    // less: {
+    //   compress: true
+    // },
+    sass: {
       outputStyle: 'compressed'
-    },*/
+    },
     babel: {
       sourceMap: true,
       presets: [

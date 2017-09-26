@@ -1,0 +1,53 @@
+<style type="scss">
+  .tab {
+
+    width: 100%;
+    height: 100rpx;
+    border-top: 1rpx solid #a7a7ac;
+    background: #f6f6f8;
+    display: flex;
+    bottom: 0;
+    .tabStyle{
+      flex: 1;
+      text-align: center;
+      font-size: 25rpx;
+      .wxiconStyle{
+        color: #7a7e83;
+        font-size: 54rpx;
+        display: block;
+      }
+    }
+  }
+</style>
+
+<template>
+  <view class="tab">
+    <view class="tabStyle tab-0" @tap="change(0)"><i class="wxicon wxiconStyle wx-wechat" ></i>微信</view>
+    <view class="tabStyle tab-1" @tap="change(1)"><i class="wxicon wxiconStyle wx-address" ></i>通讯录</view>
+    <view class="tabStyle tab-2" @tap="change(2)"><i class="wxicon wxiconStyle wx-zhinanzhen-copy" ></i>发现</view>
+    <view class="tabStyle tab-3" @tap="change(3)"><i class="wxicon wxiconStyle wx-wo1" ></i>我</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Tab extends wepy.component {
+    data = {}
+    props ={
+      tabNumber: {
+        twoWay: true,
+        type: Number
+      }
+    }
+    onLoad () {
+
+    }
+    methods = {
+      change(id) {
+        this.tabNumber = id
+      }
+    }
+  }
+
+</script>

@@ -1,235 +1,212 @@
-<style lang="less">
-  .userinfo {
+<style type="scss">
+  page {
+    height: 100%;
+  }
+  .flex{
     display: flex;
+    height: 100%;
+    width: 100%;
     flex-direction: column;
-    align-items: center;
   }
-
-  .userinfo-avatar {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 50%;
+  .tabPublic{
+    position: relative;
+    height: 100%;
+    background: #efeff5;
+    box-sizing: border-box;
+    flex: 1;
+    .phoneIcon{
+      display: inline-block;
+      width: 72rpx;
+      height:72rpx;
+      background: #1aad19;
+      margin-right: 22rpx;
+    }
   }
-
-  .userinfo-nickname {
-    color: #aaa;
+  .tab_phone{
+    .searchBox{
+      display: flex;
+      height: 87rpx;
+      align-items:center;
+      border-bottom:1rpx solid #d6d7dc ;
+      .search{
+        flex: 1;
+        background: #fff;
+        height:54rpx;
+        line-height: 54rpx;
+        text-align: center;
+        margin: 0 46rpx 0 16rpx;
+        border-radius: 10rpx;
+        font-size: 34rpx;
+        border: 1rpx solid #dadbe0;
+      }
+    }
+    .phoneBox{
+      padding: 0 30rpx 0 20rpx;
+      background: #fff;
+      .wx_function{
+        .wx_function_style{
+          display: flex;
+          align-items: center;
+          height: 110rpx;
+          border-bottom: 1px solid #d9d9d9;
+        }
+        .wx_gzh{
+          border-bottom: none;
+        }
+      }
+    }
   }
+    /*公共样式*/
+  .pt_30{
+    padding-top: 30rpx;
+  }
+    .mb40 {
+      margin-bottom: 40rpx;
+    }
+    .border_top_bottom{
+      border-top: 1px solid #d9d9d9;
+      border-bottom: 1px solid #d9d9d9;
+    }
+    .border_bottom{
+      border-bottom: 1px solid #d9d9d9;
+    }
+    .button {
+      position: relative;
+      background: #ffffff;
+      height: 86rpx;
+      line-height: 86rpx;
+      font-size: 32rpx;
+      display: flex;
+      align-items: center;
+    }
+    .wx_icon{
+      display: inline-block;
+      width: 45rpx;
+      height: 45rpx;
+      background: black;
+      margin-right: 34rpx;
+    }
+    .button::after{
+      position: absolute;
+      font-size: 40rpx;
+      color: #c7c7cc;
+      content: ">";
+      right: 30rpx;
+    }
+    .padding_l30rpx{
+      padding-left: 30rpx;
+    }
+    /*公共样式结束*/
+    .wxInfo {
+      display: flex;
+      align-items: center;
+      height: 174rpx;
+      padding-left:27rpx;
+      vertical-align: middle;
+      .avatar{
+        width: 128rpx;
+        height: 128rpx;
+        background: black;
+        border-radius: 12rpx;
+        margin-right: 25rpx;
+      }
+      .info{
+        font-size: 35rpx;
+      }
+    }
+    .container_child{
+      border-top: 1px solid #d9d9d9;
+      border-bottom: 1px solid #d9d9d9;
+      padding-left: 30rpx;
+      background: #ffffff;
+      .emoji{
+        border-bottom: none;
+      }
+    }
 </style>
+
 <template>
-  <view class="container">
-    <view class="userinfo" @tap="handleViewTap">
-      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
-      <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+  <view class="flex">
+    <!--微信item-->
+    <view class="tabPublic tab_wechat" hidden="{{currentTab !=0}}">微信</view>
+
+
+
+    <!--通讯录item-->
+    <view class="tabPublic tab_phone" hidden="{{currentTab !=1}}">
+      <view class="searchBox">
+        <view class="search">搜索</view>
+      </view>
+      <view class="phoneBox">
+        <view class="wx_function">
+          <view class="wx_function_style wx_xdpy"><i class="phoneIcon"></i>新的朋友</view>
+          <view class="wx_function_style wx_ql"><i class="phoneIcon"></i>群聊</view>
+          <view class="wx_function_style wx_bq"><i class="phoneIcon"></i>标签</view>
+          <view class="wx_function_style wx_gzh"><i class="phoneIcon"></i>公众号</view>
+        </view>
+      </view>
     </view>
 
-    <panel>
-      <view class="title" slot="title">测试数据绑定</view>
 
-      <text class="info">{{normalTitle}}</text>
-      <text class="info">{{setTimeoutTitle}}</text>
-      <text class="info">{{mixin}}</text>
-      <text class="info">{{mynum}}</text>
-      <text class="info">{{now}}</text>
-      <button @tap="plus('a')" size="mini">  +  </button>
-    </panel>
 
-    <panel>
-      <view class="title" slot="title">其它测试</view>
-      <button @tap="toast" size="mini">第三方组件</button>
-      <button @tap="communicate" size="mini">组件通信</button>
-      <button @tap="tap" size="mini">混合TAP事件</button>
-    </panel>
-
-    <panel>
-      <view class="title" slot="title">测试并发网络请求</view>
-      <view>返回结果: <text>{{netrst}}</text></view>
-      <button @tap="request" size="mini"> 点我发起10个请求 </button>
-    </panel>
-
-    <panel>
-      <view class="title" slot="title">测试组件</view>
-
-      <text class="testcounter">计数组件1: </text>
-      <view class="counterview">
-        <counter1 @index-emit.user="counterEmit" />
+    <!--发现item-->
+    <view class="tabPublic pt_30 tab_discovery" hidden="{{currentTab !=2}}">
+      <view class="button padding_l30rpx border_top_bottom mb40"><i class="wx_icon"></i>朋友圈</view>
+      <view class="button padding_l30rpx border_top_bottom mb40"><i class="wx_icon"></i>扫一扫</view>
+      <view class="container_child mb40">
+        <view class="button border_bottom"><i class="wx_icon"></i>购物</view>
+        <view class="button"><i class="wx_icon"></i>游戏</view>
       </view>
+      <view class="button padding_l30rpx border_top_bottom"><i class="wx_icon"></i>小程序</view>
+    </view>
 
-      <text class="testcounter">计数组件2: </text>
 
-      <view class="counterview">
-        <counter2 :num.sync="mynum"></counter2>
+
+    <!--我item-->
+    <view class="tabPublic pt_30 tab_me" hidden="{{currentTab !=3}}">
+      <view class="button border_top_bottom mb40 wxInfo">
+        <view class="avatar"></view>
+        <view class="info">
+          <view>Seven</view>
+          <view>微信号: laigongqi</view>
+        </view>
+        <view class="QRcord"></view>
       </view>
-    </panel>
+      <view class="button padding_l30rpx border_top_bottom mb40 money"><i class="wx_icon"></i>钱包</view>
+      <view class="container_child mb40">
+        <view class="button border_bottom collect"><i class="wx_icon"></i>收藏</view>
+        <view class="button border_bottom photo"><i class="wx_icon"></i>相册</view>
+        <view class="button border_bottom card"><i class="wx_icon"></i>卡包</view>
+        <view class="button border_bottom emoji"><i class="wx_icon"></i>表情</view>
+      </view>
+      <view class="button padding_l30rpx border_top_bottom set"><i class="wx_icon"></i>设置</view>
+    </view>
 
-    <panel>
-      <view class="title" slot="title">测试组件Repeat</view>
-      <repeat for="{{groupList}}" index="index" item="item" key="key">
-        <group :grouplist="item" :indexa="index"></group>
-      </repeat>
-    </panel>
 
-    <panel>
-      <view class="title" slot="title">测试列表</view>
-      <list></list>
-    </panel>
 
-    <toast />
+    <tab :tabNumber="currentTab"></tab>
   </view>
+
 </template>
 
 <script>
   import wepy from 'wepy'
-  import List from '../components/list'
-  import Panel from '../components/panel'
-  import Counter from '../components/counter'
-  import Group from '../components/group'
-  import Toast from 'wepy-com-toast'
-  import testMixin from '../mixins/test'
+  //  导入组件
+  //  错误写法 .pwy
+  //  import Tab from '../components/tab.wpy'
+  import Tab from '../components/tab'
 
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: 'test'
+      'navigationBarTitleText': '我',
+      'navigationBarTextStyle': 'white',
+      'navigationBarBackgroundColor': '#3a393e'
+    }
+    data = {
+      currentTab: 1
     }
     components = {
-      panel: Panel,
-      counter1: Counter,
-      counter2: Counter,
-      list: List,
-      group: Group,
-      toast: Toast
-    }
-
-    mixins = [testMixin]
-
-    data = {
-      mynum: 20,
-      userInfo: {
-        nickName: '加载中...'
-      },
-      normalTitle: '原始标题',
-      setTimeoutTitle: '标题三秒后会被修改',
-      count: 0,
-      netrst: '',
-      groupList: [
-        {
-          id: 1,
-          name: '点击改变',
-          list: [
-            {
-              childid: '1.1',
-              childname: '子项，点我改变'
-            }, {
-              childid: '1.2',
-              childname: '子项，点我改变'
-            }, {
-              childid: '1.3',
-              childname: '子项，点我改变'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: '点击改变',
-          list: [
-            {
-              childid: '2.1',
-              childname: '子项，点我改变'
-            }, {
-              childid: '2.2',
-              childname: '子项，点我改变'
-            }, {
-              childid: '2.3',
-              childname: '子项，点我改变'
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: '点击改变',
-          list: [
-            {
-              childid: '3.1',
-              childname: '子项，点我改变'
-            }
-          ]
-        }
-      ]
-    }
-
-    computed = {
-      now () {
-        return +new Date()
-      }
-    }
-
-    methods = {
-      plus () {
-        this.mynum++
-      },
-      toast () {
-        let promise = this.$invoke('toast', 'show', {
-          title: '自定义标题',
-          img: 'https://raw.githubusercontent.com/kiinlam/wetoast/master/images/star.png'
-        })
-
-        promise.then((d) => {
-          console.log('toast done')
-        })
-      },
-      tap () {
-        console.log('do noting from ' + this.$name)
-      },
-      communicate () {
-        console.log(this.$name + ' tap')
-
-        this.$invoke('counter2', 'minus', 45, 6)
-        this.$invoke('counter1', 'plus', 45, 6)
-
-        this.$broadcast('index-broadcast', 1, 3, 4)
-      },
-      request () {
-        let self = this
-        let i = 10
-        let map = ['MA==', 'MQo=', 'Mg==', 'Mw==', 'NA==', 'NQ==', 'Ng==', 'Nw==', 'OA==', 'OQ==']
-        while (i--) {
-          wepy.request({
-            url: 'https://www.madcoder.cn/tests/sleep.php?time=1&t=css&c=' + map[i] + '&i=' + i,
-            success: function (d) {
-              self.netrst += d.data + '.'
-              self.$apply()
-            }
-          })
-        }
-      },
-      counterEmit (...args) {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
-      }
-    }
-
-    events = {
-      'index-emit': (...args) => {
-        let $event = args[args.length - 1]
-        console.log(`${this.$name} receive ${$event.name} from ${$event.source.$name}`)
-      }
-    }
-
-    onLoad() {
-      let self = this
-      this.$parent.getUserInfo(function (userInfo) {
-        if (userInfo) {
-          self.userInfo = userInfo
-        }
-        self.normalTitle = '标题已被修改'
-
-        self.setTimeoutTitle = '标题三秒后会被修改'
-        setTimeout(() => {
-          self.setTimeoutTitle = '到三秒了'
-          self.$apply()
-        }, 3000)
-
-        self.$apply()
-      })
+      tab: Tab
     }
   }
 </script>
