@@ -18,7 +18,6 @@
       display: inline-block;
       width: 72rpx;
       height:72rpx;
-      background: #1aad19;
       margin-right: 22rpx;
     }
   }
@@ -81,8 +80,8 @@
     }
     .wx_icon{
       display: inline-block;
-      width: 45rpx;
-      height: 45rpx;
+      width: 50rpx;
+      height: 50rpx;
       background: black;
       margin-right: 34rpx;
     }
@@ -142,10 +141,10 @@
       </view>
       <view class="phoneBox">
         <view class="wx_function">
-          <view class="wx_function_style wx_xdpy"><i class="phoneIcon"></i>新的朋友</view>
-          <view class="wx_function_style wx_ql"><i class="phoneIcon"></i>群聊</view>
-          <view class="wx_function_style wx_bq"><i class="phoneIcon"></i>标签</view>
-          <view class="wx_function_style wx_gzh"><i class="phoneIcon"></i>公众号</view>
+          <view class="wx_function_style wx_xdpy"><image class="phoneIcon" src="../images/phone (3).png"></image>新的朋友</view>
+          <view class="wx_function_style wx_ql"><image class="phoneIcon" src="../images/phone (4).png"></image>群聊</view>
+          <view class="wx_function_style wx_bq"><image class="phoneIcon" src="../images/phone (1).png"></image>标签</view>
+          <view class="wx_function_style wx_gzh"><image class="phoneIcon" src="../images/phone (2).png"></image>公众号</view>
         </view>
       </view>
     </view>
@@ -154,13 +153,13 @@
 
     <!--发现item-->
     <view class="tabPublic pt_30 tab_discovery" hidden="{{currentTab !=2}}">
-      <view class="button padding_l30rpx border_top_bottom mb40"><i class="wx_icon"></i>朋友圈</view>
-      <view class="button padding_l30rpx border_top_bottom mb40"><i class="wx_icon"></i>扫一扫</view>
+      <view class="button padding_l30rpx border_top_bottom mb40"><image class="wx_icon" src="../images/discovery (4).png"></image>朋友圈</view>
+      <view class="button padding_l30rpx border_top_bottom mb40"><image class="wx_icon" src="../images/discovery_sys.png"></image>朋友圈</view>
       <view class="container_child mb40">
-        <view class="button border_bottom"><i class="wx_icon"></i>购物</view>
-        <view class="button"><i class="wx_icon"></i>游戏</view>
+        <view class="button border_bottom"><image class="wx_icon" src="../images/discovery (1).png"></image>购物</view>
+        <view class="button"><image class="wx_icon" src="../images/discovery (2).png"></image>游戏</view>
       </view>
-      <view class="button padding_l30rpx border_top_bottom"><i class="wx_icon"></i>小程序</view>
+      <view class="button padding_l30rpx border_top_bottom"><image class="wx_icon" src="../images/discovery (3).png"></image>小程序</view>
     </view>
 
 
@@ -168,21 +167,21 @@
     <!--我item-->
     <view class="tabPublic pt_30 tab_me" hidden="{{currentTab !=3}}">
       <view class="button border_top_bottom mb40 wxInfo">
-        <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+        <image  class="avatar" src="{{userInfo.avatarUrl}}"></image>
         <view class="info">
           <view class="nickName">{{userInfo.nickName}}</view>
           <view class="wechatNumber">微信号: laigongqi</view>
         </view>
         <view class="QRcord"></view>
       </view>
-      <view class="button padding_l30rpx border_top_bottom mb40 money"><i class="wx_icon"></i>钱包</view>
+      <view class="button padding_l30rpx border_top_bottom mb40 money"><image class="wx_icon" src="../images/me (1).gif"></image>钱包</view>
       <view class="container_child mb40">
-        <view class="button border_bottom collect"><i class="wx_icon"></i>收藏</view>
-        <view class="button border_bottom photo"><i class="wx_icon"></i>相册</view>
-        <view class="button border_bottom card"><i class="wx_icon"></i>卡包</view>
-        <view class="button border_bottom emoji"><i class="wx_icon"></i>表情</view>
+        <view class="button border_bottom collect"><image class="wx_icon" src="../images/me (2).gif"></image>收藏</view>
+        <view class="button border_bottom photo"><image class="wx_icon" src="../images/me (3).gif"></image>相册</view>
+        <view class="button border_bottom card"><image class="wx_icon" src="../images/me (4).gif"></image>卡包</view>
+        <view class="button border_bottom emoji"><image class="wx_icon" src="../images/me (5).gif"></image>表情</view>
       </view>
-      <view class="button padding_l30rpx border_top_bottom set"><i class="wx_icon"></i>设置</view>
+      <view class="button padding_l30rpx border_top_bottom set"><image class="wx_icon" src="../images/me (1).png"></image>设置</view>
     </view>
 
 
@@ -206,28 +205,24 @@
       'navigationBarBackgroundColor': '#3a393e'
     }
     data = {
-      currentTab: 3,
-      userInfo: {
-        nickName:null,
-        avatarUrl:null
-      }
+      currentTab: 0,
+      userInfo: {}
     }
     components = {
       tab: Tab
     }
     onLoad () {
-      this.getUserInfo()
-    }
-    getUserInfo () {
-      wx.login()
-      wx.getUserInfo({
-        success: (res) => {
-          this.userInfo.nickName=res.userInfo.nickName
-          this.userInfo.avatarUrl=res.userInfo.avatarUrl
-          console.log(this.userInfo.avatarUrl)
+      if (this.$parent.globalData.userInfo) {
+        this.userInfo = this.$parent.globalData.userInfo
+      }
+      else {
+        this.$parent.userInfoReadyCallback = res => {
+          this.userInfo = res.userInfo
         }
-      })
+      }
     }
+    onReady () {
 
+    }
   }
 </script>
