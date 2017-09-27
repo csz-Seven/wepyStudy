@@ -136,6 +136,9 @@
 
     <!--通讯录item-->
     <view class="tabPublic tab_phone" hidden="{{currentTab !=1}}">
+      <!--A_Z-->
+      <view class="A-Z"></view>
+
       <view class="searchBox">
         <view class="search">搜索</view>
       </view>
@@ -147,6 +150,8 @@
           <view class="wx_function_style wx_gzh"><image class="phoneIcon" src="../images/phone (2).png"></image>公众号</view>
         </view>
       </view>
+      <!--列表页-->
+
     </view>
 
 
@@ -200,18 +205,20 @@
 
   export default class Index extends wepy.page {
     config = {
-      'navigationBarTitleText': '我',
+      'navigationBarTitleText': '微信',
       'navigationBarTextStyle': 'white',
       'navigationBarBackgroundColor': '#3a393e'
     }
     data = {
-      currentTab: 0,
+      currentTab: 3,
       userInfo: {}
     }
     components = {
       tab: Tab
     }
     onLoad () {
+
+//      获取信息
       if (this.$parent.globalData.userInfo) {
         this.userInfo = this.$parent.globalData.userInfo
       }
@@ -220,6 +227,21 @@
           this.userInfo = res.userInfo
         }
       }
+
+
+//      请求Data.json数据
+//      wepy.request('https://api.douban.com/v2/book/1220562').then((res)=>{
+//        console.log(res)
+//      })
+      wx.request({
+        url:'https://api.douban.com/v2/book/1220562',
+        header: {
+          'content-type':'text/json'
+        },
+        success:(res)=>{
+          console.log(res)
+        }
+      })
     }
     onReady () {
 

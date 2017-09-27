@@ -7,6 +7,9 @@
 
     <!--通讯录item-->
     <view class="tabPublic tab_phone" hidden="{{currentTab !=1}}">
+      <!--A_Z-->
+      <view class="A-Z"/>
+
       <view class="searchBox">
         <view class="search">搜索</view>
       </view>
@@ -18,6 +21,8 @@
           <view class="wx_function_style wx_gzh"><image class="phoneIcon" src="../images/phone (2).png"/>公众号</view>
         </view>
       </view>
+      <!--列表页-->
+
     </view>
 
 
